@@ -2,6 +2,7 @@ import './App.css';
 // import Timer from './Component/Timer';
 
 import { Component } from "react"
+import Colors from './Component/Colors';
 
 class Timer extends Component {
     constructor(props){
@@ -24,6 +25,8 @@ class Timer extends Component {
         // time : (state.time) + 1
       }))
     }
+  
+
     
     render() {
       return (
@@ -38,6 +41,7 @@ function App() {
       <header className="App-header">
         <h1>SCREEN TIME</h1>
         <Timer start="1" />
+        <Colors/>
       </header>
     </div>
   );

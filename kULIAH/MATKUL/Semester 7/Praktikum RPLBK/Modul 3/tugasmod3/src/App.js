@@ -1,51 +1,31 @@
 import './App.css';
-// import Timer from './Component/Timer';
-
-import { Component } from "react"
+import FunctionalTimer from './Component/Timer';
 import Colors from './Component/Colors';
+import { Background } from './Component/Background';
+import React from 'react';
 
-class Timer extends Component {
-    constructor(props){
-      super(props)
-        this.state = {
-          time : props.start
-        }
-    }
-    componenDidMount(){
-      this.addInterval = setInterval(() => this.increase(), 1)
-    }
-    
-    componentWillUnmount(){
-      clearInterval(this.addInterval)
-    }
-    
-    increase(){
-      this.setState((state) => ({
-        time : parseInt(state.time) + 1
-        // time : (state.time) + 1
-      }))
-    }
-  
-
-    
-    render() {
-      return (
-        <div> {this.state.time} Sec</div>
-      )
-    }
-  }
+export const context = React.createContext(null);
 
 function App() {
+  const [flag, setFlag] = React.useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>ini ceritanya screen time</p>
-        <h1>SCREEN TIME</h1>
-        <Timer start="1"/>
-        Kalo ini ceritanya warna buttonnya ganti klo dipencet
-        <Colors/>
-      </header>
-    </div>
+    <context.Provider value={{flag, setFlag}}>
+      <div
+        className="App"
+        style={{ backgroundColor: flag ? "black" : "gray" }}
+      >
+        <header className="App-header">
+          <p>ini ceritanya screen time</p>
+          <h1>SCREEN TIME</h1>
+          <FunctionalTimer start={1} />
+          Kalo ini ceritanya warna buttonnya ganti klo dipencet
+          <Colors />
+          <p>ini ganti background</p>
+          <Background />
+        </header>
+      </div>
+    </context.Provider>
   );
 }
 

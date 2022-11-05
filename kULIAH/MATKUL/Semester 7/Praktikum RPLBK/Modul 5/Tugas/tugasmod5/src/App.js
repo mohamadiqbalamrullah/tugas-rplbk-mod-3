@@ -8,16 +8,15 @@ import ListItemUser from "./components/ListItemUser";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { AddCircle } from "@mui/icons-material";
-import AddUserDialog from "./components/AddUserDialog";
 import logo from './logo.svg';
 import './App.css';
 
-const BASE_API_URL = 'https://jsonplaceholder.typicode.com/';
+const BASE_API_URL = 'https://jsonplaceholder.typicode.com';
 
 
 function App() {
   
-  const [data, setDatas] = useState([]);
+  const [data, setData] = useState([]);
 
 
   useEffect(() => {
@@ -25,8 +24,9 @@ function App() {
       await axios
         .get(`${BASE_API_URL}/posts`)
         .then((res) => {
-          const resultData = res.data.data;
+          const resultData = res.data;
           setData(resultData);
+          console.log(res);
         })
         .catch((error) => {
           console.log(error);
@@ -35,34 +35,23 @@ function App() {
     }
 
     getData();
-  });
+  }, );
   
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <List>
-          {data.map((d) => (
-            <ListItemUser
-          key={d.id}
-          primaryText={d.title}
-          secondaryText={d.body}
-          />
-          ))}
-        </List>
-
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <div className="list-container">
+          <div className="list-title-wrapper">
+            <List>
+              {data.map((d) => (
+                <ListItemUser
+              key={d.id}
+              primaryText={d.title}
+              secondaryText={d.body}
+              />
+              ))}
+            </List>
+          </div>
+        </div>
     </div>
   );
 }
